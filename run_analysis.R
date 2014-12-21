@@ -7,6 +7,9 @@
 #  5. From the data set in step 4, creates a second, independent tidy data set
 #     with the average of each variable for each activity and each subject.
 ################################################################################
+#
+library(reshape2)
+#
 projectDir = "/Users/dn/Coursera/Getting_and_Cleaning_Data/CourseProject"
 dataUrl    = 'https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip'
 dataFile   = "datafile.zip"
@@ -26,7 +29,7 @@ if(!file.exists(dataFile)){
               junkpaths = FALSE, exdir = ".", unzip = "internal",
               setTimes = FALSE)}
 #
-setwd("/Users/dn/Coursera/GettingCLeaningData/CourseProject")
+setwd(projectDir)
 #
 # Read the data
 #
@@ -60,7 +63,7 @@ merged_data <- rbind(train, test)
 #
 # extract columns for mean or std
 mscols <- grepl("mean\\(\\)", names(merged_data)) |
-        grepl("std\\(\\)", names(merged_data))
+          grepl("std\\(\\)", names(merged_data))
 #
 # keep the subjectID and activity columns
 mscols[1:2] <- TRUE
