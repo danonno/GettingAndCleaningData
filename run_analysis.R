@@ -63,4 +63,4 @@ tidy <- dcast(m, subjectID+activity ~ variable, mean)
 # Output tidy dataset to file
 write.table(tidy, "tidy.txt", row.name=FALSE)
 #
-#END dn
+#END
