@@ -33,3 +33,4 @@ The sensor signals (accelerometer and gyroscope) were pre-processed by applying 
 2. All feature columns were removed that did not contain the exact string "mean()" or "std()".
 4. A tidy data set was created containing the mean of each feature for each subject and each activity. 
 5. The tidy data set was output to a text file, "tidy.txt".
+
