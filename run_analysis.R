@@ -10,18 +10,11 @@
 #
 library(reshape2)
 #
-projectDir = "~/Coursera/Getting_and_Cleaning_Data/CourseProject"
+UCI_Data_Dir = "UCI HAR Dataset"
 dataUrl    = 'https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip'
 dataFile   = "datafile.zip"
-dataDir    = "./data"
 #
-setwd(projectDir)
-#
-if(!file.exists(dataDir)){dir.create(dataDir)}
-#
-setwd(dataDir)
-#
-if(!file.exists(dataFile)){
+if(!file.exists(UCI_Data_Dir)){
         #
         download.file(dataUrl,destfile=dataFile,method="curl")
         #
@@ -29,27 +22,23 @@ if(!file.exists(dataFile)){
               junkpaths = FALSE, exdir = ".", unzip = "internal",
               setTimes = FALSE)}
 #
-setwd(projectDir)
+X_train <- read.table("./UCI HAR Dataset/train/X_train.txt", header = FALSE)
+X_test  <- read.table("./UCI HAR Dataset/test/X_test.txt", header = FALSE)
+y_train <- read.table("./UCI HAR Dataset/train/y_train.txt", header = FALSE)
+y_test  <- read.table("./UCI HAR Dataset/test/y_test.txt", header = FALSE)
 #
-X_train <- read.table("./data/UCI HAR Dataset/train/X_train.txt", header = FALSE)
-X_test  <- read.table("./data/UCI HAR Dataset/test/X_test.txt", header = FALSE)
-y_train <- read.table("./data/UCI HAR Dataset/train/y_train.txt", header = FALSE)
-y_test  <- read.table("./data/UCI HAR Dataset/test/y_test.txt", header = FALSE)
+subject_train  <- read.table("./UCI HAR Dataset/train/subject_train.txt", header = FALSE)
+subject_test    <- read.table("./UCI HAR Dataset/test/subject_test.txt", header = FALSE)
+activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt", header = FALSE)
 #
-subject_train  <- read.table("./data/UCI HAR Dataset/train/subject_train.txt", header = FALSE)
-subject_test    <- read.table("./data/UCI HAR Dataset/test/subject_test.txt", header = FALSE)
-activity_labels <- read.table("./data/UCI HAR Dataset/activity_labels.txt", header = FALSE)
-#
-features <- read.table("./data/UCI HAR Dataset/features.txt")
 #
 names(subject_train) <- "subjectID"
 names(subject_test) <- "subjectID"
 #
-featureNames <- read.table("./data/UCI HAR Dataset/features.txt")
+featureNames <- read.table("./UCI HAR Dataset/features.txt")
 names(X_train) <- featureNames$V2
 names(X_test) <- featureNames$V2
 #
-
 names(y_train) <- "activity"
 names(y_test) <- "activity"
 #
