@@ -29,8 +29,8 @@ The sensor signals (accelerometer and gyroscope) were pre-processed by applying 
 
 ### Anlysis Performed by the run_anlysis.R Script
 
-1. All of the data files were read into data frames, descriptive column headers were added, and the training and test sets were combined into a single data set.
-2. All feature columns were removed that did not contain the exact string "mean()" or "std()".
-4. A tidy data set was created containing the mean of each feature for each subject and each activity. 
-5. The tidy data set was output to a text file, "tidy.txt".
-
+* Load both test and train data
+* Load the features and activity labels.
+* Extract the mean and standard deviation column names and data.
+* Process the data. There are two parts processing test and train data respectively.
+* Merge data set.
