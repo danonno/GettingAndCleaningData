@@ -10,7 +10,7 @@
 #
 library(reshape2)
 #
-projectDir = "/Users/dn/Coursera/Getting_and_Cleaning_Data/CourseProject"
+projectDir = "~/Coursera/Getting_and_Cleaning_Data/CourseProject"
 dataUrl    = 'https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip'
 dataFile   = "datafile.zip"
 dataDir    = "./data"
@@ -20,7 +20,7 @@ setwd(projectDir)
 if(!file.exists(dataDir)){dir.create(dataDir)}
 #
 setwd(dataDir)
-# downlad the data if it is missing
+#
 if(!file.exists(dataFile)){
         #
         download.file(dataUrl,destfile=dataFile,method="curl")
@@ -30,8 +30,6 @@ if(!file.exists(dataFile)){
               setTimes = FALSE)}
 #
 setwd(projectDir)
-#
-# Read the data
 #
 X_train <- read.table("./data/UCI HAR Dataset/train/X_train.txt", header = FALSE)
 X_test  <- read.table("./data/UCI HAR Dataset/test/X_test.txt", header = FALSE)
@@ -44,16 +42,14 @@ activity_labels <- read.table("./data/UCI HAR Dataset/activity_labels.txt", head
 #
 features <- read.table("./data/UCI HAR Dataset/features.txt")
 #
-# add column name for subject files
 names(subject_train) <- "subjectID"
 names(subject_test) <- "subjectID"
 #
-# add column names for measurement files
 featureNames <- read.table("./data/UCI HAR Dataset/features.txt")
 names(X_train) <- featureNames$V2
 names(X_test) <- featureNames$V2
 #
-# add column name for label files
+
 names(y_train) <- "activity"
 names(y_test) <- "activity"
 #
@@ -61,17 +57,13 @@ train <- cbind(subject_train, y_train, X_train)
 test <- cbind(subject_test, y_test, X_test)
 merged_data <- rbind(train, test)
 #
-# extract columns for mean or std
 mscols <- grepl("mean\\(\\)", names(merged_data)) |
           grepl("std\\(\\)", names(merged_data))
 #
-# keep the subjectID and activity columns
 mscols[1:2] <- TRUE
 #
-# remove unnecessary columns
 merged_data <- merged_data[, mscols]
 #
-# convert the activity column from integer to factor
 merged_data$activity <- factor(merged_data$activity, 
                                labels=c("WALKING",
                                         "WALKING UPSTAIRS", 
@@ -80,11 +72,10 @@ merged_data$activity <- factor(merged_data$activity,
                                         "STANDING", 
                                         "LAYING"))
 #
-## average of each variable for each activity and each subject.
-#
-# create the tidy data set
 m <- melt(merged_data, id=c("subjectID","activity"))
 tidy <- dcast(m, subjectID+activity ~ variable, mean)
 #
 write.table(tidy, "tidy.txt", row.name=FALSE)
+#
+tidy
 #END
