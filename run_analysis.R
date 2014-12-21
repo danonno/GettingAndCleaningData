@@ -77,5 +77,4 @@ tidy <- dcast(m, subjectID+activity ~ variable, mean)
 #
 write.table(tidy, "tidy.txt", row.name=FALSE)
 #
-tidy
 #END
